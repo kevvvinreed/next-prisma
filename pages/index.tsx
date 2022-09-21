@@ -1,4 +1,5 @@
 import { createEntries } from '@/src/db/create/createEntries';
+import { readEntries } from '@/src/db/read/readEntries';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { IEntry } from 'prisma/schema';
@@ -55,9 +56,7 @@ const Home: NextPage<IPageProps> = ({}) => {
         <br />
         <button
           onClick={async () => {
-            const fetch_res = await fetch(`/api/read-entry?amount=${5}`);
-            const res = await fetch_res.json();
-            console.log(`res`, res);
+            const res = await readEntries({ amount: 2 });
           }}
         >
           Read
