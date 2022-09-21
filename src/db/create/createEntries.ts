@@ -1,7 +1,7 @@
 import { IEntry } from 'prisma/schema';
 
 export const createEntries = async (entry_data: IEntry[]): Promise<Response> => {
-  const fetch_res = await fetch('/api/create-entry', {
+  const fetch_res = await fetch('/api/create-entries', {
     method: 'POST',
     body: JSON.stringify(entry_data),
   });

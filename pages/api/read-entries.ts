@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import { IEntry } from 'prisma/schema';
+import { IEntryReadOptions } from '@/src/db/read/readEntries';
 
 const prisma = new PrismaClient({
   datasources: { db: { url: process.env.DATABASE_URL } },
@@ -10,7 +11,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { timestamp, hash, amount } = req.query;
+  const { amount }: IEntryReadOptions = req.query;
 
   try {
     const entries: IEntry[] = await prisma.entry.findMany({

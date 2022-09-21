@@ -14,16 +14,17 @@ export default async function handler(
 
   try {
     await prisma.entry.createMany({ data: entryData, skipDuplicates: true });
+
+    res.status(201).json({
+      data: entryData,
+      message: 'Entry successfully saved',
+      error: false,
+    });
   } catch (e: any) {
     res
       .status(400)
       .json({ data: entryData, message: e.toString(), error: true });
   }
-  res.status(201).json({
-    data: entryData,
-    message: 'Entry successfully saved',
-    error: false,
-  });
 }
 
 export const config = {

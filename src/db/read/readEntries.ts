@@ -1,11 +1,11 @@
-interface IEntryReadOptions {
+export interface IEntryReadOptions {
   amount?: number;
 }
 
 export const readEntries = async (
   opts: IEntryReadOptions = { amount: 1 }
 ): Promise<Response> => {
-  const fetch_res = await fetch(`/api/read-entry?amount=${opts.amount}`, {
+  const fetch_res = await fetch(`/api/read-entries?amount=${opts.amount}`, {
     method: 'POST',
   });
 
