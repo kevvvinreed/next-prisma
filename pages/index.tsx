@@ -13,9 +13,8 @@ const Home: NextPage<IPageProps> = ({}) => {
   const [inputBuffer, setInputBuffer] = useState<IEntry[]>();
   const [input, setInput] = useState<string>('');
 
-  const [updateBuffer, setUpdateBuffer] = useState<IEntry>();
-  const [toUpdateInput, setToUpdateInput] = useState<string>('');
-  const [fromUpdateInput, setFromUpdateInput] = useState<string>('');
+  const [dataUpdateInput, setDataUpdateInput] = useState<string>('');
+  const [whereUpdateInput, setWhereUpdateInput] = useState<string>('');
   const [deleteInput, setDeleteInput] = useState<string>('');
 
   const add_to_input = (input_var: string) => {
@@ -24,10 +23,6 @@ const Home: NextPage<IPageProps> = ({}) => {
         ? [...prevInput, { id: input_var, name: '' }]
         : [{ id: input_var, name: '' }]
     );
-  };
-
-  const add_to_update_inputs = (from_id: string, to_name: string) => {
-    setUpdateBuffer({ id: from_id, name: to_name });
   };
 
   return (
@@ -78,40 +73,26 @@ const Home: NextPage<IPageProps> = ({}) => {
         <br />
 
         <div style={{ color: `var(--accent)` }}>
-          {`From ID: ${updateBuffer?.id}`}
+          {`From ID: ${whereUpdateInput}`}
           <br />
-          {`To name: ${updateBuffer?.name}`}
+          {`To name: ${dataUpdateInput}`}
         </div>
         <input
-          onChange={e => setFromUpdateInput(e.target.value)}
-          value={fromUpdateInput}
+          onChange={e => setWhereUpdateInput(e.target.value)}
+          value={whereUpdateInput}
           placeholder="From ID"
         ></input>
         <input
-          onChange={e => setToUpdateInput(e.target.value)}
-          value={toUpdateInput}
+          onChange={e => setDataUpdateInput(e.target.value)}
+          value={dataUpdateInput}
           placeholder="To Name"
         ></input>
         <button
           onClick={() => {
-            if (fromUpdateInput === '' && toUpdateInput === '') {
-              return;
-            }
-            add_to_update_inputs(fromUpdateInput, toUpdateInput);
-            setFromUpdateInput('');
-            setToUpdateInput('');
-          }}
-        >
-          Submit
-        </button>
-        <button
-          onClick={() => {
-            if (updateBuffer) {
-              updateEntries({
-                where: { name: updateBuffer.name },
-                data: { id: updateBuffer.id },
-              });
-            }
+            updateEntries({
+              where: { id: whereUpdateInput },
+              data: { name: dataUpdateInput },
+            });
           }}
         >
           Update

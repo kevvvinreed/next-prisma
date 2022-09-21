@@ -15,11 +15,6 @@ export default async function handler(
 
   try {
     const entries: IEntry[] = await prisma.entry.findMany({
-      //   where: {
-      //     timestamp: timestamp ? { gt: parseInt(timestamp.toString()) } : {},
-      //     hash: hash ? { equals: hash.toString() } : {},
-      //   },
-      //   orderBy: { timestamp: 'asc' },
       take: amount ? parseInt(amount.toString()) : 100,
     });
     res.status(200).json(entries);
