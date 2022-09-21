@@ -13,7 +13,7 @@ const run = cmd => {
 };
 
 const repo_name = process.argv[2] ? process.argv[2] : '.';
-const git_checkout_command = `git clone --depth 1 https://github.com/kevvvinreed/next-boilerplate ${repo_name}`;
+const git_checkout_command = `git clone --depth 1 https://github.com/kevvvinreed/next-prisma ${repo_name}`;
 const install_dependencies_command = `cd ${repo_name} && yarn`;
 
 console.log(`Cloning the repository with name ${repo_name}`);
