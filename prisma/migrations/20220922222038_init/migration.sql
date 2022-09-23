@@ -1,11 +1,12 @@
 -- CreateTable
 CREATE TABLE "channel" (
     "channelId" TEXT NOT NULL,
+    "uploadsId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "channelThumbnail" TEXT NOT NULL,
-    "subscriberCount" TEXT NOT NULL,
-    "videoCount" TEXT NOT NULL,
-    "viewCount" TEXT NOT NULL,
+    "subscriberCount" INTEGER NOT NULL,
+    "videoCount" INTEGER NOT NULL,
+    "viewCount" INTEGER NOT NULL,
     "updatedAt" INTEGER NOT NULL,
 
     CONSTRAINT "channel_pkey" PRIMARY KEY ("channelId")
@@ -18,9 +19,9 @@ CREATE TABLE "video" (
     "title" TEXT NOT NULL,
     "thumbnail" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "viewCount" TEXT NOT NULL,
-    "likeCount" TEXT NOT NULL,
-    "commentCount" TEXT NOT NULL,
+    "viewCount" INTEGER NOT NULL,
+    "likeCount" INTEGER NOT NULL,
+    "commentCount" INTEGER NOT NULL,
     "updatedAt" INTEGER NOT NULL,
 
     CONSTRAINT "video_pkey" PRIMARY KEY ("videoId")

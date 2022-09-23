@@ -1,6 +1,7 @@
 import { percentStringMatch } from '@/src/util/percentStringMatch';
 import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { IChannel } from 'prisma/schema';
 
 const prisma = new PrismaClient({
   datasources: { db: { url: process.env.DATABASE_URL } },
@@ -26,6 +27,12 @@ interface IChannelStatsResponse {
       hiddenSubscriberCount: string;
       videoCount: string;
     };
+    contentDetails: {
+      relatedPlaylists: {
+        likes: string;
+        uploads: string;
+      };
+    };
   }[];
 }
 
@@ -34,13 +41,8 @@ interface IChannelResponse {
   error: boolean;
 }
 
-export interface IFormattedChannelItem {
-  channelId: string;
-  title: string;
-  thumbnail: string;
-}
 export interface IFormattedChannelRes {
-  data: IFormattedChannelItem[];
+  data: IChannel[];
   error: boolean;
 }
 
@@ -62,7 +64,7 @@ export default async function handler(
         );
 
         const stats_fetch_response = await fetch(
-          `https://www.googleapis.com/youtube/v3/channels?part=statistics%2Csnippet&id=${response.items[i].snippet.channelId}&key=${process.env.YOUTUBE_API_KEY}`
+          `https://www.googleapis.com/youtube/v3/channels?part=statistics%2Csnippet%2CcontentDetails&id=${response.items[i].snippet.channelId}&key=${process.env.YOUTUBE_API_KEY}`
         );
         const stats_response: IChannelStatsResponse =
           await stats_fetch_response.json();
@@ -80,6 +82,12 @@ export default async function handler(
             ''
           )
         );
+
+        console.log(
+          `${response.items[i].snippet.title.toLowerCase()} - ${(
+            req.query.name as string
+          ).toLowerCase()}`
+        );
         if (
           parseInt(stats_response.items[0].statistics.videoCount) > 1 &&
           parseInt(stats_response.items[0].statistics.subscriberCount) > 500 &&
@@ -87,16 +95,20 @@ export default async function handler(
           percentStringMatch(
             response.items[i].snippet.title.toLowerCase(),
             (req.query.name as string).toLowerCase(),
-            0.9
+            0.5
           )
         ) {
           channels.push({
             channelId: response.items[i].snippet.channelId,
             title: response.items[i].snippet.title.toLowerCase(),
+            uploadsId:
+              stats_response.items[0].contentDetails.relatedPlaylists.uploads,
             thumbnail: `data:image/png;base64,${b64}`,
-            subscriberCount: stats_response.items[0].statistics.subscriberCount,
-            videoCount: stats_response.items[0].statistics.videoCount,
-            viewCount: stats_response.items[0].statistics.viewCount,
+            subscriberCount: parseInt(
+              stats_response.items[0].statistics.subscriberCount
+            ),
+            videoCount: parseInt(stats_response.items[0].statistics.videoCount),
+            viewCount: parseInt(stats_response.items[0].statistics.viewCount),
           });
         }
       }
@@ -108,6 +120,7 @@ export default async function handler(
           },
           update: {
             channelId: channels[i].channelId,
+            uploadsId: channels[i].uploadsId,
             title: channels[i].title,
             channelThumbnail: channels[i].thumbnail,
             subscriberCount: channels[i].subscriberCount,
@@ -117,6 +130,7 @@ export default async function handler(
           },
           create: {
             channelId: channels[i].channelId,
+            uploadsId: channels[i].uploadsId,
             title: channels[i].title,
             channelThumbnail: channels[i].thumbnail,
             subscriberCount: channels[i].subscriberCount,

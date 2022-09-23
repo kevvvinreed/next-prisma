@@ -30,6 +30,12 @@
   height: 100px;
   overflow-y: auto;
   scroll-behavior: smooth;
+  display: flex;
+  gap: 20px;
+
+  align-items: center;
+  justify-content: left;
+  padding-left: 25px;
 }
 
 .thumbnail {
@@ -37,11 +43,32 @@
 
   background: var(--secondary);
   border: 1px solid var(--secondary-text);
-  left: 25px;
-  top: 25px;
+  /* left: 25px;
+  top: 25px; */
   width: 50px;
   height: 50px;
 
   overflow-y: auto;
   scroll-behavior: smooth;
+
+  cursor: pointer;
+}
+
+.text1 {
+  color: var(--secondary-text);
+  font-family: Roboto;
+  font-size: 18px;
+}
+
+.text2 {
+  color: var(--secondary-text);
+  font-family: Roboto;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.textContainer {
+  display: flex;
+  gap: 5px;
+  width: 200px;
 }
