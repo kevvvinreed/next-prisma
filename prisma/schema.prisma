@@ -7,36 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Channel {
-  channelId String @id
-  title String 
-  channelThumbnail String 
-  videos Video[] 
- 
-  subscriberCount String
-  videoCount String
-  viewCount String
+model Entry {
+  id String @id
+  name String?
 
-  updatedAt Int
-  
-  @@map("channel")
-} 
-
-model Video {
-  videoId String @id
-
-  channel Channel @relation(fields: [channelId], references: [channelId])
-  channelId String
-
-  title String
-  thumbnail String
-  description String
-
-  viewCount String
-  likeCount String
-  commentCount String
-
-  updatedAt Int
-
-  @@map("video")
+  @@map("entry")
 }
+//   s String
+//   v Int 
+//   chainId Int 
+// }//   s String
+//   v Int 
+//   chainId Int 
+// }
