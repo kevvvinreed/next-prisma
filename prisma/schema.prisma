@@ -9,15 +9,13 @@ datasource db {
 
 model Channel {
   channelId String @id
-  uploadsId String
   title String 
   channelThumbnail String 
   videos Video[] 
  
-  subscriberCount Int
-  videoCount Int
-  viewCount Int
-
+  subscriberCount String
+  videoCount String
+  viewCount String
 
   updatedAt Int
   
@@ -34,9 +32,9 @@ model Video {
   thumbnail String
   description String
 
-  viewCount Int
-  likeCount Int
-  commentCount Int
+  viewCount String
+  likeCount String
+  commentCount String
 
   updatedAt Int
 

@@ -1,15 +1,8 @@
 export interface IChannel {
   channelId: string;
-  uploadsId: string;
   title: string;
   channelThumbnail: string;
   videos: IVideo[];
-
-  subscriberCount: number;
-  videoCount: number;
-  viewCount: number;
-
-  updatedAt: number;
 }
 
 export interface IVideo {
@@ -22,13 +15,13 @@ export interface IVideo {
   thumbnail: string;
   description: string;
 
-  viewCount: number;
-  likeCount: number;
-  commentCount: number;
+  viewCount: string;
+  likeCount: string;
+  commentCount: string;
 
-  subscriberCount: number;
-  videoCount: number;
-  viewCount: number;
+  subscriberCount: string;
+  videoCount: string;
+  viewCount: string;
 
-  updatedAt: number;
+  timeStamp: number;
 }
