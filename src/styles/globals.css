@@ -1,24 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 [data-theme='light'] {
-  --primary: #ffffff;
-  --secondary: #e5e5e5;
+  --primary: #e5e5e5;
+  --secondary: #ffffff;
   --text: #000000;
   --secondary-text: #121212;
   --accent: rgb(255, 107, 74);
 }
 
 [data-theme='dark'] {
-  --primary: #000000;
+  --primary: #1f1a24;
   --secondary: #121212;
   --primary-text: #ffffff;
   --secondary-text: #aeaeae;
   --accent: rgb(255, 107, 74);
-}
-
-@font-face {
-  font-family: 'Skygraze';
-  src: url('../../asset/fonts/Skygraze.otf');
 }
 
 * {
@@ -36,9 +31,6 @@ html {
   overflow-x: hidden;
   position: fixed;
   overflow: hidden;
-
-  user-select: none;
-  cursor: none;
 }
 
 body {
